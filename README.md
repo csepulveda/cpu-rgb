@@ -9,7 +9,7 @@ not flicker, and pushed to any device OpenRGB can control: motherboard ARGB head
 fans, CPU cooler), RAM, GPU, keyboards…
 
 ```
-load  0%  ████ #FFFFFF  white
+load  0%  ████ #FFFFFF  white (flat up to 3 %, so an idle desktop never flickers)
      10%  ████ #0000FF  blue
      25%  ████ #00FFFF  cyan
      40%  ████ #00FF00  green
@@ -82,7 +82,7 @@ Uninstall with `sudo ./uninstall.sh` (add `--purge` to also delete the config fi
 | Key | Default | Meaning |
 |---|---|---|
 | `source` | `"cpu"` | `"cpu"` = CPU load in %, `"temp"` = hwmon temperature in °C |
-| `gradient` | see example | List of `[value, "RRGGBB"]` anchors. Colours are interpolated between anchors and clamped outside the range. |
+| `gradient` | see example | List of `[value, "RRGGBB"]` anchors. Colours are interpolated between anchors and clamped outside the range. Repeat a colour on two consecutive anchors to get a flat band (the default keeps 0-3 % pure white so idle load noise does not trigger updates). |
 | `poll_seconds` | `2.0` | Sampling interval |
 | `smoothing` | `0.4` | EMA factor, 0–1. Higher reacts faster, lower is calmer. `1.0` disables smoothing. |
 | `min_update_seconds` | `3.0` | Never send updates more often than this |
@@ -98,7 +98,7 @@ CPU load (default):
 
 ```json
 "source": "cpu",
-"gradient": [[0,"FFFFFF"],[10,"0000FF"],[25,"00FFFF"],[40,"00FF00"],[60,"FFFF00"],[80,"FF8000"],[100,"FF0000"]]
+"gradient": [[0,"FFFFFF"],[3,"FFFFFF"],[10,"0000FF"],[25,"00FFFF"],[40,"00FF00"],[60,"FFFF00"],[80,"FF8000"],[100,"FF0000"]]
 ```
 
 CPU temperature, tuned for an AMD Ryzen 9800X3D (idle ≈ 45 °C, all-core limit 95 °C):

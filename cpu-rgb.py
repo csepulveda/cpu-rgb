@@ -40,6 +40,7 @@ DEFAULTS = {
     "mode": "static",
     "gradient": [
         [0, "FFFFFF"],
+        [3, "FFFFFF"],
         [10, "0000FF"],
         [25, "00FFFF"],
         [40, "00FF00"],
