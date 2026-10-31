@@ -1,0 +1,15 @@
+[Unit]
+Description=OpenRGB SDK server (localhost only)
+Documentation=https://openrgb.org
+After=systemd-udev-trigger.service
+Wants=systemd-udev-trigger.service
+
+[Service]
+Type=simple
+# /etc/openrgb holds OpenRGB.json, sizes.ors (zone sizes) and profiles for the server.
+ExecStart=/usr/bin/openrgb --server --server-host 127.0.0.1 --server-port 6742 --noautoconnect --config /etc/openrgb
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
