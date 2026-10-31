@@ -1,0 +1,17 @@
+[Unit]
+Description=cpu-rgb: CPU load/temperature -> RGB colour (via OpenRGB server)
+Documentation=https://github.com/csepulveda/cpu-rgb
+After=openrgb-server.service
+Requires=openrgb-server.service
+
+[Service]
+Type=simple
+# Wait until the OpenRGB server has finished detecting devices.
+ExecStartPre=/bin/sh -c 'for i in $(seq 1 30); do /usr/bin/openrgb --client 127.0.0.1:6742 --nodetect --list-devices 2>/dev/null | grep -q "^0: " && exit 0; sleep 1; done; echo "openrgb server has no devices" >&2; exit 1'
+ExecStart=/usr/bin/python3 /usr/local/bin/cpu-rgb --config /etc/cpu-rgb.conf
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

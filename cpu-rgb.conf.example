@@ -1,0 +1,36 @@
+{
+  "_doc": "cpu-rgb configuration. source: 'cpu' = total CPU load in % (0-100); 'temp' = hwmon temperature in C. gradient = [[value, 'RRGGBB'], ...], colours are interpolated between points. Reload with: systemctl reload cpu-rgb",
+
+  "source": "cpu",
+
+  "poll_seconds": 2.0,
+  "smoothing": 0.4,
+  "min_update_seconds": 3.0,
+  "quantize": 8,
+
+  "sensor_name": "k10temp",
+  "sensor_label": "Tctl",
+
+  "openrgb": ["/usr/bin/openrgb", "--client", "127.0.0.1:6742", "--nodetect"],
+  "devices": [0],
+  "mode": "static",
+
+  "gradient": [
+    [0,   "FFFFFF"],
+    [10,  "0000FF"],
+    [25,  "00FFFF"],
+    [40,  "00FF00"],
+    [60,  "FFFF00"],
+    [80,  "FF8000"],
+    [100, "FF0000"]
+  ],
+
+  "_gradient_temperature_example": [
+    [48, "0000FF"],
+    [55, "00FFFF"],
+    [65, "00FF00"],
+    [75, "FFFF00"],
+    [85, "FF6000"],
+    [92, "FF0000"]
+  ]
+}
